@@ -57,7 +57,7 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       autovalidateMode: autoValidateMode,
       inputFormatters: inputFormatters,
-      maxLines: obscureText == null ? maxLines : 1,
+      maxLines: obscureText == null ? maxLines ?? 1 : 1,
       maxLength: maxLength,
       buildCounter: _buildCounter,
       obscureText: obscureText ?? false,

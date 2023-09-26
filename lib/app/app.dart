@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:result_checker/app/app_routes.dart';
 import 'package:result_checker/bloc/%20home_bloc/cubit.dart';
-import 'package:result_checker/bloc/submit_bloc/cubit.dart';
+import 'package:result_checker/bloc/result_form_bloc/cubit.dart';
+
 import 'package:result_checker/screens/home/home.dart';
 import 'package:result_checker/widgets/sized_config.dart';
 
@@ -21,8 +22,8 @@ class _AppState extends State<App> {
         BlocProvider<HomeCubit>(
           create: (context) => HomeCubit(),
         ),
-        BlocProvider<SubmitCubit>(
-          create: (context) => SubmitCubit(),
+        BlocProvider<ResultFormCubit>(
+          create: (context) => ResultFormCubit(),
         ),
       ],
       child: Builder(builder: (context) {

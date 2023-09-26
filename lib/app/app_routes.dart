@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:result_checker/screens/home/home.dart';
-import 'package:result_checker/screens/submit_result/submit_result_screen.dart';
+import 'package:result_checker/screens/result_form/result_form_screen.dart';
 
 class AppKeys {
   static final navigatorKey = GlobalKey<NavigatorState>();
@@ -12,6 +12,6 @@ class AppRoutes {
 
   static Map<String, Widget Function(BuildContext _)> routes = {
     home: (_) => const HomeScreen(),
-    submitResult: (_) => const SubmitResultScreen()
+    submitResult: (_) => const ResultFormScreen()
   };
 }
