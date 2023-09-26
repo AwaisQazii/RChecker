@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:result_checker/app/app_routes.dart';
 import 'package:result_checker/bloc/%20home_bloc/home_cubits/cubit.dart';
 import 'package:result_checker/screens/home/home.dart';
+import 'package:result_checker/widgets/sized_config.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -20,18 +21,21 @@ class _AppState extends State<App> {
           create: (context) => HomeCubit(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: AppKeys.navigatorKey,
-        navigatorObservers: [
-          NavigatorObserver(),
-        ],
-        routes: AppRoutes.routes,
-        initialRoute: AppRoutes.home,
-        builder: (context, child) {
-          return child!;
-        },
-      ),
+      child: Builder(builder: (context) {
+        SizedConfig.init(context);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: AppKeys.navigatorKey,
+          navigatorObservers: [
+            NavigatorObserver(),
+          ],
+          routes: AppRoutes.routes,
+          initialRoute: AppRoutes.home,
+          builder: (context, child) {
+            return child!;
+          },
+        );
+      }),
     );
   }
 }

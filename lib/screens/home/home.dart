@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:result_checker/bloc/%20home_bloc/home_cubits/cubit.dart';
 import 'package:result_checker/widgets/app_loader.dart';
 import 'package:result_checker/widgets/custom_app_bar.dart';
+import 'package:result_checker/widgets/sized_config.dart';
+import 'package:result_checker/widgets/title_text.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,12 +22,48 @@ class HomeScreen extends StatelessWidget {
             if (state == HomeStates.loading) {
               return const AppLoader();
             } else {
-              return const Column(
-                children: [
-                  Card(
-                    child: Text("View Result"),
-                  ),
-                ],
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // AppSpace.vrtSpace(10),
+                    SizedBox(
+                      width: SizedConfig.width,
+                      height: SizedConfig.height * 0.3,
+                      child: Card(
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: TitleText(
+                              title: "Submit Result",
+                              fontSize: 20,
+                              weight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: SizedConfig.width,
+                      height: SizedConfig.height * 0.3,
+                      child: Card(
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: TitleText(
+                              title: "View Results",
+                              fontSize: 20,
+                              weight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             }
           },
