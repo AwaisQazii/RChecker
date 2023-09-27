@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
     this.showLengthCount = false,
     this.filled,
     this.readOnly = false,
+    this.onFieldSubmitted,
     this.inputFormatters,
     this.hint,
     this.maxLines,
@@ -32,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? obscureText;
   final TextInputType? keyboardType;
   final bool? filled;
+  final Function(String? value)? onFieldSubmitted;
   final String? hint;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
@@ -61,6 +63,7 @@ class CustomTextFormField extends StatelessWidget {
       maxLength: maxLength,
       buildCounter: _buildCounter,
       obscureText: obscureText ?? false,
+      onFieldSubmitted: onFieldSubmitted,
       readOnly: readOnly,
       decoration: InputDecoration(
         hintText: hint,

@@ -43,15 +43,19 @@ responseDialog(BuildContext context, String message, [bool? error]) {
           weight: FontWeight.w500,
         ),
         actions: [
-          if (error ?? false)
-            AppButton(
+          Center(
+            child: AppButton(
               onPressed: () {
                 pop();
+                if (!(error ?? false)) {
+                  pop();
+                }
               },
               content: TitleText(
                 title: "OK",
               ),
             ),
+          ),
         ],
       );
     },

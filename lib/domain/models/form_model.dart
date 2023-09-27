@@ -15,7 +15,10 @@ class FormModel {
   String? seatNo;
   String? district;
   double? marks;
+  String? testName;
   String? coaching;
+  String? college;
+
   int? attempt;
   int? year;
 
@@ -25,9 +28,11 @@ class FormModel {
     this.cnic,
     this.seatNo,
     this.district,
+    this.testName,
     this.marks,
     this.coaching,
     this.attempt,
+    this.college,
     this.year,
   });
 
@@ -39,6 +44,8 @@ class FormModel {
         district: json["district"],
         marks: json["marks"],
         coaching: json["coaching"],
+        college: json["college"],
+        testName: json["testName"],
         attempt: json["attempt"],
         year: json["year"],
       );
@@ -48,9 +55,11 @@ class FormModel {
         "name": name,
         "cnic": cnic,
         "seatNo": seatNo,
-        "district": district,
+        "district": district?.toUpperCase() ?? "",
         "marks": marks,
         "coaching": coaching,
+        "college": college,
+        "testName": testName?.toUpperCase() ?? "",
         "attempt": attempt,
         "year": year,
       };
