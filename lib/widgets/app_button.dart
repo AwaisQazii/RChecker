@@ -7,10 +7,10 @@ class AppButton extends StatelessWidget {
     super.key,
     this.widthFactor = 0.5,
     required this.onPressed,
-    required this.content,
+    required this.child,
   });
   final double widthFactor;
-  final Widget content;
+  final Widget child;
   final VoidCallback onPressed;
 
   @override
@@ -20,7 +20,7 @@ class AppButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(),
         onPressed: onPressed,
-        child: content,
+        child: child,
       ),
     );
   }

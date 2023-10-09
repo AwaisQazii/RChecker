@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:result_checker/app/app.dart';
 import 'package:result_checker/app/navigation_helper.dart';
 import 'package:result_checker/bloc/result_form_bloc/result_form_cubit.dart';
 import 'package:result_checker/widgets/app_button.dart';
@@ -61,12 +62,63 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
 
             if (state == ResultFormState.loading) {
               loader(context);
+            } else if (state == ResultFormState.valid) {
+              showAdaptiveDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog.adaptive(
+                    title: TitleText(
+                      title: "Result can't be edited. Pleas make sure your form is correct.",
+                      textAlign: TextAlign.center,
+                      weight: FontWeight.w500,
+                    ),
+                    actionsAlignment: MainAxisAlignment.spaceEvenly,
+                    actions: [
+                      Center(
+                        child: AppButton(
+                          widthFactor: 0.3,
+                          onPressed: () {
+                            pop();
+                            cubit.pop();
+                          },
+                          child: TitleText(
+                            title: "Cancel",
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: AppButton(
+                          widthFactor: 0.3,
+                          onPressed: () async {
+                            await context.read<ResultFormCubit>().submitForm(
+                                  context,
+                                  name: name.text,
+                                  attempt: attempt.text,
+                                  cnic: cnic.text.trim(),
+                                  testName: testName.text,
+                                  coaching: coaching.text,
+                                  district: district.text,
+                                  college: college.text,
+                                  marks: marks.text,
+                                  rollNo: rollNo.text,
+                                  year: year.text,
+                                );
+                          },
+                          child: TitleText(
+                            title: "Confirm",
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             } else if (state == ResultFormState.success) {
               pop();
               responseDialog(context, "Result Submitted");
             } else if (state == ResultFormState.error) {
               pop();
-              responseDialog(context, cubit.error);
+              responseDialog(context, cubit.errorMessage);
             }
           },
           builder: (context, state) {
@@ -233,24 +285,12 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                     Center(
                       child: AppButton(
                         widthFactor: 0.7,
-                        content: TitleText(
+                        child: TitleText(
                           title: "Save",
                           color: AppColors.white,
                         ),
-                        onPressed: () async {
-                          await context.read<ResultFormCubit>().submitForm(
-                                context,
-                                name: name.text,
-                                attempt: attempt.text,
-                                cnic: cnic.text.trim(),
-                                testName: testName.text,
-                                coaching: coaching.text,
-                                district: district.text,
-                                college: college.text,
-                                marks: marks.text,
-                                rollNo: rollNo.text,
-                                year: year.text,
-                              );
+                        onPressed: () {
+                          cubit.validState();
                         },
                       ),
                     ),

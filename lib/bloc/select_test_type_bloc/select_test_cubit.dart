@@ -25,7 +25,6 @@ class SelectTestTypeCubit extends Cubit<SelectTestTypeState> {
       final ref = FirebaseFirestore.instance.collection('test_types').snapshots();
 
       testTypes = ref;
-      // testTypes = ref.docs;
 
       emit(SelectTestTypeState.success);
     } catch (e) {

@@ -47,11 +47,11 @@ responseDialog(BuildContext context, String message, [bool? error]) {
             child: AppButton(
               onPressed: () {
                 pop();
-                if (!(error ?? false)) {
+                if (!(error ?? true)) {
                   pop();
                 }
               },
-              content: TitleText(
+              child: TitleText(
                 title: "OK",
               ),
             ),
