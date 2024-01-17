@@ -11,6 +11,17 @@ enum ResultFormState { loading, valid, invalid, error, success, reset }
 
 class ResultFormCubit extends Cubit<ResultFormState> {
   final formKey = GlobalKey<FormState>();
+  final rollNo = TextEditingController();
+  final name = TextEditingController();
+  final testName = TextEditingController();
+
+  final attempt = TextEditingController();
+  final cnic = TextEditingController();
+  final marks = TextEditingController();
+  final year = TextEditingController();
+  final district = TextEditingController();
+  final college = TextEditingController();
+  final coaching = TextEditingController();
 
   String errorMessage = '';
   ResultFormCubit() : super(ResultFormState.loading);
@@ -27,39 +38,43 @@ class ResultFormCubit extends Cubit<ResultFormState> {
     }
   }
 
-  submitForm(
-    BuildContext context, {
-    required String name,
-    required String cnic,
-    required String rollNo,
-    required String testName,
-    required String district,
-    required String marks,
-    required String? coaching,
-    required String? college,
-    required String attempt,
-    required String year,
-  }) async {
+  submitForm(BuildContext context) async {
     try {
       emit(ResultFormState.loading);
       final ref = FirebaseFirestore.instance.collection('results');
       final docID = ref.doc().id;
 
+      double testMarks = 0.0;
+      int noOfAttempts = 0;
+      int testYear = 0;
+
+      if (marks.text.isNotEmpty) {
+        testMarks = double.parse(marks.text);
+      }
+
+      if (attempt.text.isNotEmpty) {
+        noOfAttempts = int.parse(attempt.text);
+      }
+
+      if (year.text.isNotEmpty) {
+        testYear = int.parse(year.text);
+      }
+
       final form = FormModel(
         docId: docID,
-        name: name,
-        cnic: cnic,
-        seatNo: rollNo,
-        district: district,
-        testName: testName,
-        college: college ?? "",
-        marks: double.parse(marks),
-        coaching: coaching ?? "",
-        attempt: int.parse(attempt),
-        year: int.parse(year),
+        name: name.text,
+        cnic: cnic.text,
+        seatNo: rollNo.text,
+        district: district.text,
+        testName: testName.text,
+        college: college.text,
+        marks: testMarks,
+        coaching: coaching.text,
+        attempt: noOfAttempts,
+        year: testYear,
       );
 
-      final cnicExists = await doesCNICExist(cnic);
+      final cnicExists = await doesCNICExist(cnic.text);
 
       if (cnicExists) {
         errorMessage = "candidate already exists";
@@ -68,7 +83,7 @@ class ResultFormCubit extends Cubit<ResultFormState> {
         await ref.doc(docID).set(form.toJson());
       }
 
-      final testNameExists = await doesTestNameExist(testName);
+      final testNameExists = await doesTestNameExist(testName.text);
 
       if (!testNameExists) {
         await FirebaseFirestore.instance.collection('test_types').doc().set({'name': testName});

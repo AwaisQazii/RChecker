@@ -22,29 +22,8 @@ class ResultFormScreen extends StatefulWidget {
 }
 
 class _ResultFormScreenState extends State<ResultFormScreen> {
-  final rollNo = TextEditingController();
-  final name = TextEditingController();
-  final testName = TextEditingController();
-
-  final attempt = TextEditingController();
-  final cnic = TextEditingController();
-  final marks = TextEditingController();
-  final year = TextEditingController();
-  final district = TextEditingController();
-  final college = TextEditingController();
-  final coaching = TextEditingController();
-
   @override
   void dispose() {
-    name.dispose();
-    rollNo.dispose();
-    cnic.dispose();
-    coaching.dispose();
-    college.dispose();
-    marks.dispose();
-    district.dispose();
-    year.dispose();
-
     super.dispose();
   }
 
@@ -92,16 +71,6 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                           onPressed: () async {
                             await context.read<ResultFormCubit>().submitForm(
                                   context,
-                                  name: name.text,
-                                  attempt: attempt.text,
-                                  cnic: cnic.text.trim(),
-                                  testName: testName.text,
-                                  coaching: coaching.text,
-                                  district: district.text,
-                                  college: college.text,
-                                  marks: marks.text,
-                                  rollNo: rollNo.text,
-                                  year: year.text,
                                 );
                           },
                           child: TitleText(
@@ -153,7 +122,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: name,
+                                  controller: cubit.name,
                                   hint: "Name",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   validator: formValidate,
@@ -165,7 +134,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: cnic,
+                                  controller: cubit.cnic,
                                   hint: "CNIC",
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -186,7 +155,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: testName,
+                                  controller: cubit.testName,
                                   hint: "Test Name (eg : MDCAT/ECAT)",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   validator: formValidate,
@@ -198,7 +167,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: rollNo,
+                                  controller: cubit.rollNo,
                                   hint: "Roll No/Seat No",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   validator: formValidate,
@@ -210,7 +179,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: marks,
+                                  controller: cubit.marks,
                                   hint: "Marks",
                                   keyboardType: TextInputType.number,
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
@@ -223,7 +192,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: year,
+                                  controller: cubit.year,
                                   hint: "Test Year",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   validator: formValidate,
@@ -235,7 +204,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: district,
+                                  controller: cubit.district,
                                   hint: "District",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   validator: formValidate,
@@ -247,7 +216,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: attempt,
+                                  controller: cubit.attempt,
                                   hint: "Attempt (eg: 1 ,2, 3)",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   validator: formValidate,
@@ -260,7 +229,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: coaching,
+                                  controller: cubit.coaching,
                                   hint: "Coaching Center (eg: The Spark Center)",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                 ),
@@ -271,7 +240,7 @@ class _ResultFormScreenState extends State<ResultFormScreen> {
                                 ),
                                 AppSpace.vrtSpace(5),
                                 CustomTextFormField(
-                                  controller: college,
+                                  controller: cubit.college,
                                   hint: "College",
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                 ),
